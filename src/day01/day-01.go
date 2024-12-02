@@ -1,7 +1,7 @@
 package main
 
 import (
-	helpermethods "advent-of-code-2024"
+	helpermethods "advent-of-code-2024/src"
 	"bufio"
 	"fmt"
 	"os"

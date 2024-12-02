@@ -1,4 +1,4 @@
-package helpermethods
+package src
 
 func Abs(number int) int {
 	if number < 0 {
