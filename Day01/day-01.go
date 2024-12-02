@@ -13,24 +13,62 @@ import (
 func main() {
 	leftIds, rightIds := readFile("Day01/input-01.txt")
 
-	sort.Ints(leftIds)
-	sort.Ints(rightIds)
+	firstPuzzle(leftIds, rightIds)
+	secondPuzzle(leftIds, rightIds)
+}
 
-	zippedListOfIds := zipLists(leftIds, rightIds)
+func secondPuzzle(leftIds []int, rightIds []int) {
+	copyLeftIds := getCopyOfList(leftIds)
+	copyRightIds := getCopyOfList(rightIds)
+
+	dict := getDictWithOccurrences(copyRightIds)
+
+	var similarityScore int
+	for _, element := range copyLeftIds {
+		numberOfOccurrences := dict[element]
+		similarityScore += numberOfOccurrences * element
+	}
+
+	fmt.Println(similarityScore)
+}
+
+func getDictWithOccurrences(copyRightIds []int) map[int]int {
+	dict := make(map[int]int)
+	for _, rightId := range copyRightIds {
+		dict[rightId]++
+	}
+
+	return dict
+}
+
+func firstPuzzle(leftIds []int, rightIds []int) {
+	copyLeftIds := getCopyOfList(leftIds)
+	copyRightIds := getCopyOfList(rightIds)
+
+	sort.Ints(copyRightIds)
+	sort.Ints(copyLeftIds)
+
+	zippedListOfIds := zipLists(copyLeftIds, copyRightIds)
 
 	sumOfAllDiffs := sumOfAllDiffsPerPair(zippedListOfIds)
 
 	fmt.Println(sumOfAllDiffs)
 }
 
+func getCopyOfList(list []int) []int {
+	var copyList = make([]int, len(list))
+	copy(copyList, list)
+	return copyList
+}
+
 func sumOfAllDiffsPerPair(zippedListOfIds [][2]int) int {
 	var sumOfAllDiffs int
 
-	for n := range zippedListOfIds {
-		var diff = zippedListOfIds[n][1] - zippedListOfIds[n][0]
+	for _, pair := range zippedListOfIds {
+		var diff = pair[1] - pair[0]
 		sumOfAllDiffs += helpermethods.Abs(diff)
 	}
-	
+
 	return sumOfAllDiffs
 }
 
