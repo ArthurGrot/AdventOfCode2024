@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	leftIds, rightIds := readFile("Day01/input-01.txt")
+	leftIds, rightIds := readFile("day01/input-01.txt")
 
 	firstPuzzle(leftIds, rightIds)
 	secondPuzzle(leftIds, rightIds)
